@@ -10,10 +10,7 @@ import Foundation
 struct Question {
     var questionText: String
     
-    var answer1: Answer
-    var answer2: Answer
-    var answer3: Answer
-    var answer4: Answer
+    var answers: [Answer]
     
     struct Answer {
         var text: String

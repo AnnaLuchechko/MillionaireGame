@@ -12,6 +12,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let millionaireApi = MillionaireAPIService()
+        millionaireApi.getQuestions(completion: {question, error in
+            print(question?.questionText ?? "error")
+            print(question?.answers ?? "error")
+        })
     }
 
 
