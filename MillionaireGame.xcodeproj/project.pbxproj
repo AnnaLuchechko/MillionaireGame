@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		089095F8254A557100DF44F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089095F7254A557100DF44F1 /* AppDelegate.swift */; };
 		089095FA254A557100DF44F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089095F9254A557100DF44F1 /* SceneDelegate.swift */; };
-		089095FC254A557100DF44F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089095FB254A557100DF44F1 /* ViewController.swift */; };
+		089095FC254A557100DF44F1 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089095FB254A557100DF44F1 /* StartScreenViewController.swift */; };
 		089095FF254A557100DF44F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 089095FD254A557100DF44F1 /* Main.storyboard */; };
 		08909602254A557100DF44F1 /* MillionaireGame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08909600254A557100DF44F1 /* MillionaireGame.xcdatamodeld */; };
 		08909604254A557200DF44F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08909603254A557200DF44F1 /* Assets.xcassets */; };
@@ -17,13 +17,15 @@
 		08DA2696254B38E5006995E8 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA2695254B38E5006995E8 /* Question.swift */; };
 		08DA2699254B56B6006995E8 /* MillionaireAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA2698254B56B6006995E8 /* MillionaireAPIService.swift */; };
 		08DA269C254B5735006995E8 /* MillionaireQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA269B254B5735006995E8 /* MillionaireQuestion.swift */; };
+		08DA26A4254DF000006995E8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA26A3254DF000006995E8 /* GameViewController.swift */; };
+		08DA26A7254DF015006995E8 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA26A6254DF015006995E8 /* ResultsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		089095F4254A557100DF44F1 /* MillionaireGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MillionaireGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		089095F7254A557100DF44F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		089095F9254A557100DF44F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		089095FB254A557100DF44F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		089095FB254A557100DF44F1 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		089095FE254A557100DF44F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		08909601254A557100DF44F1 /* MillionaireGame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MillionaireGame.xcdatamodel; sourceTree = "<group>"; };
 		08909603254A557200DF44F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		08DA2695254B38E5006995E8 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		08DA2698254B56B6006995E8 /* MillionaireAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MillionaireAPIService.swift; sourceTree = "<group>"; };
 		08DA269B254B5735006995E8 /* MillionaireQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MillionaireQuestion.swift; sourceTree = "<group>"; };
+		08DA26A3254DF000006995E8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		08DA26A6254DF015006995E8 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +70,9 @@
 			children = (
 				089095F7254A557100DF44F1 /* AppDelegate.swift */,
 				089095F9254A557100DF44F1 /* SceneDelegate.swift */,
-				089095FB254A557100DF44F1 /* ViewController.swift */,
+				089095FB254A557100DF44F1 /* StartScreenViewController.swift */,
+				08DA26A3254DF000006995E8 /* GameViewController.swift */,
+				08DA26A6254DF015006995E8 /* ResultsViewController.swift */,
 				08DA26A0254B62A9006995E8 /* Model */,
 				08DA269E254B628D006995E8 /* Service */,
 				08909603254A557200DF44F1 /* Assets.xcassets */,
@@ -167,8 +173,10 @@
 			files = (
 				08DA269C254B5735006995E8 /* MillionaireQuestion.swift in Sources */,
 				08DA2696254B38E5006995E8 /* Question.swift in Sources */,
-				089095FC254A557100DF44F1 /* ViewController.swift in Sources */,
+				089095FC254A557100DF44F1 /* StartScreenViewController.swift in Sources */,
 				089095F8254A557100DF44F1 /* AppDelegate.swift in Sources */,
+				08DA26A4254DF000006995E8 /* GameViewController.swift in Sources */,
+				08DA26A7254DF015006995E8 /* ResultsViewController.swift in Sources */,
 				089095FA254A557100DF44F1 /* SceneDelegate.swift in Sources */,
 				08DA2699254B56B6006995E8 /* MillionaireAPIService.swift in Sources */,
 				08909602254A557100DF44F1 /* MillionaireGame.xcdatamodeld in Sources */,

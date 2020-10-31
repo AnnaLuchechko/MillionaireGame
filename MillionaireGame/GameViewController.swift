@@ -1,17 +1,19 @@
 //
-//  ViewController.swift
+//  GameViewController.swift
 //  MillionaireGame
 //
-//  Created by Anna Luchechko on 29.10.2020.
+//  Created by Anna Luchechko on 31.10.2020.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "wall")!)
+    
         
         let millionaireApi = MillionaireAPIService()
         millionaireApi.getQuestions(completion: {question, error in
@@ -19,7 +21,5 @@ class ViewController: UIViewController {
             print(question?.answers ?? "error")
         })
     }
-
-
+    
 }
-
