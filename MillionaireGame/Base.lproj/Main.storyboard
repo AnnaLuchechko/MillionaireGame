@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZNv-25-iRV">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -13,7 +13,7 @@
             <objects>
                 <navigationController id="ZNv-25-iRV" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="chevron.backward.circle.fill" catalog="system" largeTitles="YES" id="Zxe-p5-XfX">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
@@ -38,11 +38,11 @@
             <objects>
                 <viewController id="dSC-eG-idL" customClass="StartScreenViewController" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mcM-LV-uNf">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="td5-FG-RKn">
-                                <rect key="frame" x="57" y="359" width="300" height="60"/>
+                                <rect key="frame" x="87" y="247" width="201" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
                                 <state key="normal" title="НОВАЯ ИГРА" backgroundImage="string">
@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGC-Hs-fgm">
-                                <rect key="frame" x="57" y="441" width="300" height="60"/>
+                                <rect key="frame" x="87" y="316" width="201" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
                                 <state key="normal" title="РЕЗУЛЬТАТЫ" backgroundImage="string">
@@ -68,6 +68,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="dBa-Yr-yi2"/>
+                    <connections>
+                        <outlet property="playButton" destination="td5-FG-RKn" id="QA2-rj-ASK"/>
+                        <outlet property="resultsButton" destination="aGC-Hs-fgm" id="wUg-XH-jcl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M2e-bR-pTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,7 +82,7 @@
             <objects>
                 <viewController id="o1C-TP-Dkc" customClass="ResultsViewController" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="miy-7v-GjA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="RBE-wr-STh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -89,28 +93,119 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XhZ-w4-LnW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="672"/>
+            <point key="canvasLocation" x="82" y="679"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="Amc-pd-E3O">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="qWF-AR-qEV" customClass="GameViewController" customModule="MillionaireGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="153-pb-dUt">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLR-WO-TQg">
+                                <rect key="frame" x="17" y="402" width="340" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="19"/>
+                                <state key="normal" title="A: Юнг" backgroundImage="string">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Tj-rc-ARU">
+                                <rect key="frame" x="16" y="450" width="340" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="19"/>
+                                <state key="normal" title="B: Гегель" backgroundImage="string">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-1m-fk3">
+                                <rect key="frame" x="16" y="498" width="340" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="19"/>
+                                <state key="normal" backgroundImage="right">
+                                    <string key="title">C: Ницше
+
+</string>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOt-fe-xEk">
+                                <rect key="frame" x="15" y="95" width="105" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
+                                <state key="normal" title="50/50" backgroundImage="string">
+                                    <color key="titleColor" red="1" green="0.62640845779999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooq-3f-0gX">
+                                <rect key="frame" x="255" y="95" width="105" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
+                                <state key="normal" title="🦸‍♂️🦸🦸‍♀️" backgroundImage="string">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5k-9Q-rrN">
+                                <rect key="frame" x="16" y="546" width="340" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
+                                <state key="normal" backgroundImage="wrong">
+                                    <string key="title">D: Шопенгауэр
+
+</string>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pTz-cd-vyr">
+                                <rect key="frame" x="17" y="162" width="340" height="220"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Кто из этих философов в 1864 году написал музыку на стихи А.С. Пушкина «Заклинание» и «Зимний вечер»?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esW-Rw-1RG">
+                                        <rect key="frame" x="10" y="8" width="320" height="220"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="20"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bTP-id-pZY">
+                                <rect key="frame" x="135" y="95" width="105" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="25"/>
+                                <state key="normal" title="🤵" backgroundImage="string">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="eic-ml-Jpn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="6lK-f6-SXN"/>
+                    <connections>
+                        <outlet property="aAnswerButton" destination="fLR-WO-TQg" id="Mo9-md-yKB"/>
+                        <outlet property="bAnswerButton" destination="0Tj-rc-ARU" id="0Sb-Lr-Lii"/>
+                        <outlet property="cAnswerButton" destination="lq3-1m-fk3" id="UZv-ki-0ME"/>
+                        <outlet property="dAnswerButton" destination="f5k-9Q-rrN" id="x5h-yj-GUD"/>
+                        <outlet property="friendHintButton" destination="bTP-id-pZY" id="xEI-yz-SUw"/>
+                        <outlet property="hallHintButton" destination="ooq-3f-0gX" id="afO-pH-3wJ"/>
+                        <outlet property="hint50_50Button" destination="HOt-fe-xEk" id="iCp-2t-10S"/>
+                        <outlet property="questionLabel" destination="esW-Rw-1RG" id="DxY-Je-47n"/>
+                        <outlet property="questionView" destination="pTz-cd-vyr" id="u7B-qc-Afy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Vx-Rk-6P4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="67" y="8"/>
+            <point key="canvasLocation" x="80.799999999999997" y="9.4452773613193415"/>
         </scene>
     </scenes>
     <resources>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="right" width="75" height="20"/>
         <image name="string" width="233" height="61"/>
+        <image name="wrong" width="75" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

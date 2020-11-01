@@ -13,12 +13,7 @@ class ResultsViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "wall")!)
-        navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "",
-            style: .plain,
-            target: self,
-            action: #selector(popToPrevious)
-        )
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(popToPrevious))
     
     }
     
