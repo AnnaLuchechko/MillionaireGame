@@ -2,6 +2,7 @@
 //  MillionaireQuestion.swift
 //  MillionaireGame
 //
+// Structure from API Millionaire https://engine.lifeis.porn/docs/millionaire/index.html
 //  Created by Anna Luchechko on 29.10.2020.
 //
 import Foundation

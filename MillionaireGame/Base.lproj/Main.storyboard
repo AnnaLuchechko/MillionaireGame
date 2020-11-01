@@ -111,7 +111,7 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Tj-rc-ARU">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Tj-rc-ARU">
                                 <rect key="frame" x="16" y="450" width="340" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="19"/>
@@ -119,11 +119,11 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.22358900309999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-1m-fk3">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lq3-1m-fk3">
                                 <rect key="frame" x="16" y="498" width="340" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="19"/>
-                                <state key="normal" backgroundImage="right">
+                                <state key="normal" backgroundImage="string">
                                     <string key="title">C: Ницше
 
 </string>
@@ -146,11 +146,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5k-9Q-rrN">
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5k-9Q-rrN">
                                 <rect key="frame" x="16" y="546" width="340" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
-                                <state key="normal" backgroundImage="wrong">
+                                <state key="normal" backgroundImage="string">
                                     <string key="title">D: Шопенгауэр
 
 </string>
@@ -203,9 +203,7 @@
     </scenes>
     <resources>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="right" width="75" height="20"/>
         <image name="string" width="233" height="61"/>
-        <image name="wrong" width="75" height="20"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

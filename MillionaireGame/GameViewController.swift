@@ -19,6 +19,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var bAnswerButton: UIButton!
     @IBOutlet weak var cAnswerButton: UIButton!
     @IBOutlet weak var dAnswerButton: UIButton!
+    
+    var answersArray: [Question.Answer]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +33,58 @@ class GameViewController: UIViewController {
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(popToPrevious))
         constraints()
-    
+        setDataToObjects()
+        setSelectorToAnswerButtons()
         
-//        let millionaireApi = MillionaireAPIService()
-//        millionaireApi.getQuestions(completion: {question, error in
-//            print(question?.questionText ?? "error")
-//            print(question?.answers ?? "error")
-//        })
+
+    
+    }
+    
+    func setDataToObjects() {
+        let millionaireApi = MillionaireAPIService()
+        millionaireApi.getQuestions(completion: { [weak self] (question, error) in
+            
+            self?.answersArray = question?.answers
+            
+            DispatchQueue.main.async {
+                self?.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+                self?.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+                self?.cAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+                self?.dAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+                
+                self?.questionLabel.text = question?.questionText
+                
+                self?.aAnswerButton.setTitle("A: \(question?.answers[0].text ?? "")", for: .normal)
+                self?.bAnswerButton.setTitle("B: \(question?.answers[1].text ?? "")", for: .normal)
+                self?.cAnswerButton.setTitle("C: \(question?.answers[2].text ?? "")", for: .normal)
+                self?.dAnswerButton.setTitle("D: \(question?.answers[3].text ?? "")", for: .normal)
+            }
+        })
+    }
+    
+    func setSelectorToAnswerButtons() {
+        aAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        bAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        cAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        dAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+    }
+    
+    @objc func pressed(sender: UIButton!) {
+        if (answersArray?[sender.tag].correct == true) {
+            DispatchQueue.main.async {
+                sender.setBackgroundImage(UIImage(named: "right")!, for: .normal)
+                self.questionLabel.text = "Верно!"
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.setDataToObjects()
+            }
+        } else if (answersArray?[sender.tag].correct == false) {
+            DispatchQueue.main.async {
+                sender.setBackgroundImage(UIImage(named: "wrong")!, for: .normal)
+                self.questionLabel.text = "Не верно! \n Вы програли!"
+            }
+        }
     }
     
     // Turn back from other controller

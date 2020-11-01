@@ -35,12 +35,12 @@ class MillionaireAPIService {
                 let millionaireQuestion = try JSONDecoder().decode(MillionaireQuestion.self, from: data)
                 
                 var answers = [Question.Answer]()
-                let millionaireQuestions = millionaireQuestion.data.first?.answers ?? []
-                for i in 0..<millionaireQuestions.count {
+                let millionaireAnswers = millionaireQuestion.data.first?.answers ?? []
+                for i in 0..<millionaireAnswers.count {
                     if(i == 0) {
-                        answers.append(Question.Answer(text: millionaireQuestions[i], correct: true))
+                        answers.append(Question.Answer(text: millionaireAnswers[i], correct: true))
                     } else {
-                        answers.append(Question.Answer(text: millionaireQuestions[i], correct: false))
+                        answers.append(Question.Answer(text: millionaireAnswers[i], correct: false))
                     }
                 }
                 // Create Question struct from MillionaireQuestion struct
