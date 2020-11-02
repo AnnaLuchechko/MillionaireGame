@@ -27,15 +27,14 @@ class GameViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "wall")!)
         
-        // Set image as layer for questionView
         questionView.layer.contents = UIImage(named: "qlabel")?.cgImage
         questionView?.contentMode = .scaleAspectFit
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(popToPrevious))
-        constraints()
-        setDataToObjects()
-        setSelectorToAnswerButtons()
         
+        constraints()
+        
+        setDataToObjects()
 
     
     }
@@ -45,7 +44,8 @@ class GameViewController: UIViewController {
         millionaireApi.getQuestions(completion: { [weak self] (question, error) in
             
             self?.answersArray = question?.answers
-            
+            self?.setButtonsEnabled(enabled: true)
+
             DispatchQueue.main.async {
                 self?.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
                 self?.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
@@ -60,15 +60,14 @@ class GameViewController: UIViewController {
                 self?.dAnswerButton.setTitle("D: \(question?.answers[3].text ?? "")", for: .normal)
             }
         })
-    }
-    
-    func setSelectorToAnswerButtons() {
+        
         aAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
         bAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
         cAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
         dAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
     }
     
+    // If answerButtons are pressed
     @objc func pressed(sender: UIButton!) {
         if (answersArray?[sender.tag].correct == true) {
             DispatchQueue.main.async {
@@ -79,11 +78,22 @@ class GameViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.setDataToObjects()
             }
+            
         } else if (answersArray?[sender.tag].correct == false) {
             DispatchQueue.main.async {
                 sender.setBackgroundImage(UIImage(named: "wrong")!, for: .normal)
                 self.questionLabel.text = "Не верно! \n Вы програли!"
             }
+        }
+        setButtonsEnabled(enabled: false)
+    }
+    
+    func setButtonsEnabled(enabled: Bool) {
+        DispatchQueue.main.async {
+            self.aAnswerButton.isEnabled = enabled
+            self.bAnswerButton.isEnabled = enabled
+            self.cAnswerButton.isEnabled = enabled
+            self.dAnswerButton.isEnabled = enabled
         }
     }
     
