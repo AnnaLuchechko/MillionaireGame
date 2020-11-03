@@ -10,9 +10,20 @@ import UIKit
 class Game {
         
     var gameSession: GameSession?
+    var gameResultsArray: [Double] = [Double]()
     
     static let shared = Game()
     private init() {}
+    
+    func gameReasults() {
+        let quetionsCompleted = Double(gameSession?.questionsCompleted ?? 0)
+        let quetionsInGame = Double(gameSession?.questionsInGame ?? 0)
+
+        let result =  quetionsCompleted / quetionsInGame * 100.00
+        gameResultsArray.append(result)
+        print (gameResultsArray)
+        gameSession = nil
+    }
     
 }
 

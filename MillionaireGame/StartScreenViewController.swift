@@ -77,10 +77,12 @@ extension StartScreenViewController: GameDelegate {
     }
     
     func didWinGame() {
+        Game.shared.gameReasults()
         print("Did Win Game")
     }
     
     func didEndGame() {
+        Game.shared.gameReasults()
         print("Did End Game")
         dismiss(animated: true, completion: nil)
     }
