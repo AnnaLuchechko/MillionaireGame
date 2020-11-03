@@ -20,10 +20,19 @@ class StartScreenViewController: UIViewController {
         // Delete "Back" from navigation Back item
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(popToPrevious))
         constraints()
-
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "startGame":
+            guard let destination = segue.destination as? GameViewController else { return }
+            destination.gameDelegate = self
+            Game.shared.gameSession = GameSession()
+        default:
+            break
+        }
+    }
+
     
     // Turn back from other controller
     @objc private func popToPrevious() {
@@ -52,3 +61,40 @@ class StartScreenViewController: UIViewController {
     
 }
 
+extension StartScreenViewController: GameDelegate {
+    
+    func didTapRightAnswer() {
+        Game.shared.gameSession?.questionsCompleted += 1
+        if(Game.shared.gameSession?.questionsCompleted == 5) {
+            Game.shared.gameSession?.difficulty += 1
+            Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[4] ?? 0
+        } else if (Game.shared.gameSession?.questionsCompleted == 10) {
+            Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[9] ?? 0
+        } else if (Game.shared.gameSession?.questionsCompleted == 14) {
+            Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[14] ?? 0
+        }
+        print("Did Tap Right Answer")
+    }
+    
+    func didWinGame() {
+        print("Did Win Game")
+    }
+    
+    func didEndGame() {
+        print("Did End Game")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func didTap50on50() {
+        print("50/50 hint used")
+    }
+    
+    func didTapHall() {
+        print("Help of hall hint used")
+    }
+    
+    func didTapCall() {
+        print("Call to friend hint used")
+    }
+    
+}

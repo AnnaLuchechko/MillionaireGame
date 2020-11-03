@@ -17,7 +17,8 @@ class MillionaireAPIService {
         urlConstructor.host = "engine.lifeis.porn"
         urlConstructor.path = "/api/millionaire.php"
         urlConstructor.queryItems = [
-            URLQueryItem(name: "qType", value: "1"),
+            // Change  game questions difficulty
+            URLQueryItem(name: "qType", value: String(Game.shared.gameSession?.difficulty ?? 1)),
             URLQueryItem(name: "count", value: "1"),
         ]
         

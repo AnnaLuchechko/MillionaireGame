@@ -20,6 +20,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var cAnswerButton: UIButton!
     @IBOutlet weak var dAnswerButton: UIButton!
     
+    weak var gameDelegate: GameDelegate!
+    
     var answersArray: [Question.Answer]?
 
     override func viewDidLoad() {
@@ -34,9 +36,17 @@ class GameViewController: UIViewController {
         
         constraints()
         
+        aAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        bAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        cAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        dAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
+        
+        hint50_50Button.addTarget(self, action: #selector(hintPressed(sender:)), for: .touchUpInside)
+        friendHintButton.addTarget(self, action: #selector(hintPressed(sender:)), for: .touchUpInside)
+        hallHintButton.addTarget(self, action: #selector(hintPressed(sender:)), for: .touchUpInside)
+        
+        setButtonsEnabled(enabled: false)
         setDataToObjects()
-
-    
     }
     
     func setDataToObjects() {
@@ -60,32 +70,58 @@ class GameViewController: UIViewController {
                 self?.dAnswerButton.setTitle("D: \(question?.answers[3].text ?? "")", for: .normal)
             }
         })
-        
-        aAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
-        bAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
-        cAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
-        dAnswerButton.addTarget(self, action: #selector(pressed(sender:)), for: .touchUpInside)
     }
     
     // If answerButtons are pressed
     @objc func pressed(sender: UIButton!) {
         if (answersArray?[sender.tag].correct == true) {
-            DispatchQueue.main.async {
-                sender.setBackgroundImage(UIImage(named: "right")!, for: .normal)
-                self.questionLabel.text = "Верно!"
+            gameDelegate?.didTapRightAnswer()
+            if(Game.shared.gameSession?.questionsCompleted == 14) {
+                self.questionLabel.text = "Поздравляем!\n Вы выиграли \(Game.shared.gameSession?.prize ?? 0)"
+                gameDelegate?.didWinGame()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                let nextPrize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0)] ?? 0
+                let prize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0) - 1] ?? 0
+                
+                DispatchQueue.main.async {
+                    sender.setBackgroundImage(UIImage(named: "right")!, for: .normal)
+                    self.questionLabel.text = "Верно! \n Ваш выигрыш - \(prize)\n Следующий вопрос на \n\(nextPrize)"
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.setDataToObjects()
+                }
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.setDataToObjects()
-            }
-            
         } else if (answersArray?[sender.tag].correct == false) {
             DispatchQueue.main.async {
                 sender.setBackgroundImage(UIImage(named: "wrong")!, for: .normal)
-                self.questionLabel.text = "Не верно! \n Вы програли!"
+                self.questionLabel.text = "Не верно! \n Вы програли! \n Ваш приз составляет \(Game.shared.gameSession?.prize ?? 0)"
+            }
+            gameDelegate?.didEndGame()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.dismiss(animated: true, completion: nil)
             }
         }
         setButtonsEnabled(enabled: false)
+    }
+    
+    // If answerButtons are pressed
+    @objc func hintPressed(sender: UIButton!) {
+        switch sender.tag {
+        case 0:
+            gameDelegate?.didTap50on50()
+            break
+        case 1:
+            gameDelegate?.didTapCall()
+            break
+        case 2:
+            gameDelegate?.didTapHall()
+            break
+        default:
+            break
+        }
     }
     
     func setButtonsEnabled(enabled: Bool) {
