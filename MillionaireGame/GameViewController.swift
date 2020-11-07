@@ -9,6 +9,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    var gameOrderStrategy: GameOrderStrategy = GameOrderRandom()
+    
     @IBOutlet weak var hint50_50Button: UIButton!
     @IBOutlet weak var friendHintButton: UIButton!
     @IBOutlet weak var hallHintButton: UIButton!
@@ -23,9 +25,12 @@ class GameViewController: UIViewController {
     weak var gameDelegate: GameDelegate!
     
     var answersArray: [Question.Answer]?
+    var questionsArray: [Question] = [Question]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        questionsArray = gameOrderStrategy.createQuestions(questionsArray: Game.shared.gameQuestions)
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "wall")!)
         
@@ -50,7 +55,7 @@ class GameViewController: UIViewController {
     }
     
     func setDataToObjects() {
-        let question = Game.shared.gameQuestions[Game.shared.gameSession?.questionsCompleted ?? 0]
+        let question = questionsArray[Game.shared.gameSession?.questionsCompleted ?? 0]
         answersArray = question.answers
         setButtonsEnabled(enabled: true)
 

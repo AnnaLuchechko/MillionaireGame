@@ -34,9 +34,19 @@ class StartScreenViewController: UIViewController {
         case "startGame":
             guard let destination = segue.destination as? GameViewController else { return }
             destination.gameDelegate = self
+            destination.gameOrderStrategy = createGameOrderStrategy()
             Game.shared.gameSession = GameSession()
         default:
             break
+        }
+    }
+    
+    private func createGameOrderStrategy() -> GameOrderStrategy {
+        switch Game.shared.gameOrder {
+        case .straight:
+            return GameOrderStraight()
+        case .random:
+            return GameOrderRandom()
         }
     }
 
@@ -93,7 +103,6 @@ extension StartScreenViewController: GameDelegate {
         } else if (Game.shared.gameSession?.questionsCompleted == 14) {
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[14] ?? 0
         }
-        print("Did Tap Right Answer")
     }
     
     func didWinGame() {

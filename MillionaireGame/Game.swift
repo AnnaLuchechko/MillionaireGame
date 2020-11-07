@@ -13,6 +13,8 @@ class Game {
     var gameResultsArray: [Double] = [Double]()
     var gameQuestions: [Question] = [Question]()
     
+    var gameOrder: GameOrder = .random
+    
     static let shared = Game()
     
     private(set) var records: [GameRecord] {
