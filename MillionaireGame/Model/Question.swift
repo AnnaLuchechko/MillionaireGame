@@ -7,14 +7,24 @@
 
 import Foundation
 
-struct Question {
-    var questionText: String
+class Question: Codable {
     
-    var answers: [Answer]
+    var questionText: String = ""
+    var answers: [Answer] = []
     
-    struct Answer {
+    init(questionText: String, answers: [Answer]) {
+        self.questionText = questionText
+        self.answers = answers
+    }
+    
+    class Answer: Codable {
         var text: String
         var correct: Bool
+        
+        init(text: String, correct: Bool) {
+            self.text = text
+            self.correct = correct
+        }
     }
 }
 

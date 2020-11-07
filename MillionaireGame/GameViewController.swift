@@ -50,26 +50,23 @@ class GameViewController: UIViewController {
     }
     
     func setDataToObjects() {
-        let millionaireApi = MillionaireAPIService()
-        millionaireApi.getQuestions(completion: { [weak self] (question, error) in
-            
-            self?.answersArray = question?.answers
-            self?.setButtonsEnabled(enabled: true)
+        let question = Game.shared.gameQuestions[Game.shared.gameSession?.questionsCompleted ?? 0]
+        answersArray = question.answers
+        setButtonsEnabled(enabled: true)
 
-            DispatchQueue.main.async {
-                self?.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.cAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.dAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                
-                self?.questionLabel.text = question?.questionText
-                
-                self?.aAnswerButton.setTitle("A: \(question?.answers[0].text ?? "")", for: .normal)
-                self?.bAnswerButton.setTitle("B: \(question?.answers[1].text ?? "")", for: .normal)
-                self?.cAnswerButton.setTitle("C: \(question?.answers[2].text ?? "")", for: .normal)
-                self?.dAnswerButton.setTitle("D: \(question?.answers[3].text ?? "")", for: .normal)
-            }
-        })
+        DispatchQueue.main.async {
+            self.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.cAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.dAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            
+            self.questionLabel.text = question.questionText
+            
+            self.aAnswerButton.setTitle("A: \(question.answers[0].text)", for: .normal)
+            self.bAnswerButton.setTitle("B: \(question.answers[1].text)", for: .normal)
+            self.cAnswerButton.setTitle("C: \(question.answers[2].text)", for: .normal)
+            self.dAnswerButton.setTitle("D: \(question.answers[3].text)", for: .normal)
+        }
     }
     
     // If answerButtons are pressed

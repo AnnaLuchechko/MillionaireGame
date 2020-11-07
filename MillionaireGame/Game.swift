@@ -11,6 +11,7 @@ class Game {
         
     var gameSession: GameSession?
     var gameResultsArray: [Double] = [Double]()
+    var gameQuestions: [Question] = [Question]()
     
     static let shared = Game()
     
