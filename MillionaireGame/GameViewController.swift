@@ -22,6 +22,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var cAnswerButton: UIButton!
     @IBOutlet weak var dAnswerButton: UIButton!
     
+    @IBOutlet weak var questionsNumbers: UILabel!
+    @IBOutlet weak var questionsPercents: UILabel!
+    
     weak var gameDelegate: GameDelegate!
     
     var answersArray: [Question.Answer]?
@@ -29,6 +32,14 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Game.shared.gameSession?.questionsCompleted.addObserver(self, options: [.new, .initial], closure: { [weak self] (questionsCompleted, _) in
+            guard let self = self else { return }
+            self.questionsNumbers.text = "\(questionsCompleted + 1)/\(Game.shared.gameQuestions.count)"
+            let coeff = Double(questionsCompleted) / Double(Game.shared.gameQuestions.count - 1) * 100
+            let percent = Int(coeff.rounded())
+            self.questionsPercents.text = "\(percent) %"
+        })
         
         questionsArray = gameOrderStrategy.createQuestions(questionsArray: Game.shared.gameQuestions)
         
@@ -55,7 +66,7 @@ class GameViewController: UIViewController {
     }
     
     func setDataToObjects() {
-        let question = questionsArray[Game.shared.gameSession?.questionsCompleted ?? 0]
+        let question = questionsArray[Game.shared.gameSession?.questionsCompleted.value ?? 0]
         answersArray = question.answers
         setButtonsEnabled(enabled: true)
 
@@ -78,15 +89,15 @@ class GameViewController: UIViewController {
     @objc func pressed(sender: UIButton!) {
         if (answersArray?[sender.tag].correct == true) {
             gameDelegate?.didTapRightAnswer()
-            if(Game.shared.gameSession?.questionsCompleted == 14) {
+            if(Game.shared.gameSession?.questionsCompleted.value == 14) {
                 self.questionLabel.text = "Поздравляем!\n Вы выиграли \(Game.shared.gameSession?.prize ?? 0)"
                 gameDelegate?.didWinGame()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                let nextPrize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0)] ?? 0
-                let prize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0) - 1] ?? 0
+                let nextPrize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted.value ?? 0)] ?? 0
+                let prize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted.value ?? 0) - 1] ?? 0
                 
                 DispatchQueue.main.async {
                     sender.setBackgroundImage(UIImage(named: "right")!, for: .normal)

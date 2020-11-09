@@ -94,13 +94,13 @@ class StartScreenViewController: UIViewController {
 extension StartScreenViewController: GameDelegate {
     
     func didTapRightAnswer() {
-        Game.shared.gameSession?.questionsCompleted += 1
-        if(Game.shared.gameSession?.questionsCompleted == 5) {
+        Game.shared.gameSession?.questionsCompleted.value += 1
+        if(Game.shared.gameSession?.questionsCompleted.value == 5) {
             Game.shared.gameSession?.difficulty += 1
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[4] ?? 0
-        } else if (Game.shared.gameSession?.questionsCompleted == 10) {
+        } else if (Game.shared.gameSession?.questionsCompleted.value == 10) {
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[9] ?? 0
-        } else if (Game.shared.gameSession?.questionsCompleted == 14) {
+        } else if (Game.shared.gameSession?.questionsCompleted.value == 14) {
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[14] ?? 0
         }
     }

@@ -39,7 +39,7 @@ class Game {
     }
     
     func gameReasults() {
-        let quetionsCompleted = Double(gameSession?.questionsCompleted ?? 0)
+        let quetionsCompleted = Double(gameSession?.questionsCompleted.value ?? 0)
         let quetionsInGame = Double(gameSession?.questionsInGame ?? 0)
 
         let record =  quetionsCompleted / quetionsInGame * 100.00
@@ -58,8 +58,8 @@ struct GameRecord: Codable {
     var record: Double
 }
 
-class GameSession: Codable {
-    var questionsCompleted: Int = 0
+class GameSession {
+    var questionsCompleted = Observable<Int>(0)
     var questionsInGame: Int = 15
     var difficulty: Int = 1
     var prize: Int = 0
