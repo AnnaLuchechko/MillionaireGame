@@ -9,6 +9,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    var gameOrderStrategy: GameOrderStrategy = GameOrderRandom()
+    
     @IBOutlet weak var hint50_50Button: UIButton!
     @IBOutlet weak var friendHintButton: UIButton!
     @IBOutlet weak var hallHintButton: UIButton!
@@ -20,12 +22,26 @@ class GameViewController: UIViewController {
     @IBOutlet weak var cAnswerButton: UIButton!
     @IBOutlet weak var dAnswerButton: UIButton!
     
+    @IBOutlet weak var questionsNumbers: UILabel!
+    @IBOutlet weak var questionsPercents: UILabel!
+    
     weak var gameDelegate: GameDelegate!
     
     var answersArray: [Question.Answer]?
+    var questionsArray: [Question] = [Question]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Game.shared.gameSession?.questionsCompleted.addObserver(self, options: [.new, .initial], closure: { [weak self] (questionsCompleted, _) in
+            guard let self = self else { return }
+            self.questionsNumbers.text = "\(questionsCompleted + 1)/\(Game.shared.gameQuestions.count)"
+            let coeff = Double(questionsCompleted) / Double(Game.shared.gameQuestions.count - 1) * 100
+            let percent = Int(coeff.rounded())
+            self.questionsPercents.text = "\(percent) %"
+        })
+        
+        questionsArray = gameOrderStrategy.createQuestions(questionsArray: Game.shared.gameQuestions)
         
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "wall")!)
         
@@ -50,41 +66,38 @@ class GameViewController: UIViewController {
     }
     
     func setDataToObjects() {
-        let millionaireApi = MillionaireAPIService()
-        millionaireApi.getQuestions(completion: { [weak self] (question, error) in
-            
-            self?.answersArray = question?.answers
-            self?.setButtonsEnabled(enabled: true)
+        let question = questionsArray[Game.shared.gameSession?.questionsCompleted.value ?? 0]
+        answersArray = question.answers
+        setButtonsEnabled(enabled: true)
 
-            DispatchQueue.main.async {
-                self?.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.cAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                self?.dAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
-                
-                self?.questionLabel.text = question?.questionText
-                
-                self?.aAnswerButton.setTitle("A: \(question?.answers[0].text ?? "")", for: .normal)
-                self?.bAnswerButton.setTitle("B: \(question?.answers[1].text ?? "")", for: .normal)
-                self?.cAnswerButton.setTitle("C: \(question?.answers[2].text ?? "")", for: .normal)
-                self?.dAnswerButton.setTitle("D: \(question?.answers[3].text ?? "")", for: .normal)
-            }
-        })
+        DispatchQueue.main.async {
+            self.aAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.bAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.cAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            self.dAnswerButton.setBackgroundImage(UIImage(named: "string")!, for: .normal)
+            
+            self.questionLabel.text = question.questionText
+            
+            self.aAnswerButton.setTitle("A: \(question.answers[0].text)", for: .normal)
+            self.bAnswerButton.setTitle("B: \(question.answers[1].text)", for: .normal)
+            self.cAnswerButton.setTitle("C: \(question.answers[2].text)", for: .normal)
+            self.dAnswerButton.setTitle("D: \(question.answers[3].text)", for: .normal)
+        }
     }
     
     // If answerButtons are pressed
     @objc func pressed(sender: UIButton!) {
         if (answersArray?[sender.tag].correct == true) {
             gameDelegate?.didTapRightAnswer()
-            if(Game.shared.gameSession?.questionsCompleted == 14) {
+            if(Game.shared.gameSession?.questionsCompleted.value == 14) {
                 self.questionLabel.text = "Поздравляем!\n Вы выиграли \(Game.shared.gameSession?.prize ?? 0)"
                 gameDelegate?.didWinGame()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     self.dismiss(animated: true, completion: nil)
                 }
             } else {
-                let nextPrize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0)] ?? 0
-                let prize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted ?? 0) - 1] ?? 0
+                let nextPrize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted.value ?? 0)] ?? 0
+                let prize = Game.shared.gameSession?.prizeArray[(Game.shared.gameSession?.questionsCompleted.value ?? 0) - 1] ?? 0
                 
                 DispatchQueue.main.async {
                     sender.setBackgroundImage(UIImage(named: "right")!, for: .normal)

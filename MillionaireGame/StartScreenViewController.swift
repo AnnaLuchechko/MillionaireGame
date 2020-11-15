@@ -11,7 +11,8 @@ class StartScreenViewController: UIViewController {
     
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var resultsButton: UIButton!
-
+    @IBOutlet weak var settingsButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,7 +20,13 @@ class StartScreenViewController: UIViewController {
         
         // Delete "Back" from navigation Back item
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(popToPrevious))
-        constraints()
+        setConstraints()
+        //setButtonImages()
+        
+        if(Game.shared.gameQuestions.count == 0) {
+            let questionsService = QuestionsService()
+            questionsService.loadQuestions()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -27,9 +34,19 @@ class StartScreenViewController: UIViewController {
         case "startGame":
             guard let destination = segue.destination as? GameViewController else { return }
             destination.gameDelegate = self
+            destination.gameOrderStrategy = createGameOrderStrategy()
             Game.shared.gameSession = GameSession()
         default:
             break
+        }
+    }
+    
+    private func createGameOrderStrategy() -> GameOrderStrategy {
+        switch Game.shared.gameOrder {
+        case .straight:
+            return GameOrderStraight()
+        case .random:
+            return GameOrderRandom()
         }
     }
 
@@ -39,9 +56,10 @@ class StartScreenViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    func constraints() {
+    func setConstraints() {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         resultsButton.translatesAutoresizingMaskIntoConstraints = false
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
 
         let playButtonConstraints = [
             playButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -55,25 +73,36 @@ class StartScreenViewController: UIViewController {
             resultsButton.widthAnchor.constraint(equalToConstant: 300),
             resultsButton.heightAnchor.constraint(equalToConstant: 60)
         ]
+        let settingsButtonConstraints = [
+            settingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            settingsButton.centerYAnchor.constraint(equalTo: resultsButton.centerYAnchor, constant: 80),
+            settingsButton.widthAnchor.constraint(equalToConstant: 300),
+            settingsButton.heightAnchor.constraint(equalToConstant: 60)
+        ]
         NSLayoutConstraint.activate(playButtonConstraints)
         NSLayoutConstraint.activate(resultsButtonConstraints)
+        NSLayoutConstraint.activate(settingsButtonConstraints)
     }
+    
+//    func setButtonImages() {
+//        settingsButton.layer.contents = UIImage(named: "string")?.cgImage
+//        settingsButton?.contentMode = .scaleAspectFit
+//    }
     
 }
 
 extension StartScreenViewController: GameDelegate {
     
     func didTapRightAnswer() {
-        Game.shared.gameSession?.questionsCompleted += 1
-        if(Game.shared.gameSession?.questionsCompleted == 5) {
+        Game.shared.gameSession?.questionsCompleted.value += 1
+        if(Game.shared.gameSession?.questionsCompleted.value == 5) {
             Game.shared.gameSession?.difficulty += 1
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[4] ?? 0
-        } else if (Game.shared.gameSession?.questionsCompleted == 10) {
+        } else if (Game.shared.gameSession?.questionsCompleted.value == 10) {
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[9] ?? 0
-        } else if (Game.shared.gameSession?.questionsCompleted == 14) {
+        } else if (Game.shared.gameSession?.questionsCompleted.value == 14) {
             Game.shared.gameSession?.prize = Game.shared.gameSession?.prizeArray[14] ?? 0
         }
-        print("Did Tap Right Answer")
     }
     
     func didWinGame() {

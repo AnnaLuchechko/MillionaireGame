@@ -9,7 +9,7 @@ import Foundation
 
 class MillionaireAPIService {
     
-    func getQuestions(completion: @escaping (Question?, String) -> Void) {
+    func getQuestions(completion: @escaping ([Question]?, String) -> Void) {
         
         // Create URL
         var urlConstructor = URLComponents()
@@ -19,7 +19,7 @@ class MillionaireAPIService {
         urlConstructor.queryItems = [
             // Change  game questions difficulty
             URLQueryItem(name: "qType", value: String(Game.shared.gameSession?.difficulty ?? 1)),
-            URLQueryItem(name: "count", value: "1"),
+            URLQueryItem(name: "count", value: "5"),
         ]
         
         // Check if URL is valid
@@ -33,20 +33,24 @@ class MillionaireAPIService {
             }
             do {
                 // Parse data from JSON to MillionaireQuestion struct
-                let millionaireQuestion = try JSONDecoder().decode(MillionaireQuestion.self, from: data)
+                let millionaireQuestions = try JSONDecoder().decode(MillionaireQuestion.self, from: data)
                 
-                var answers = [Question.Answer]()
-                let millionaireAnswers = millionaireQuestion.data.first?.answers ?? []
-                for i in 0..<millionaireAnswers.count {
-                    if(i == 0) {
-                        answers.append(Question.Answer(text: millionaireAnswers[i], correct: true))
-                    } else {
-                        answers.append(Question.Answer(text: millionaireAnswers[i], correct: false))
+                var questions: [Question] = [Question]()
+                for millionaireQuestion in millionaireQuestions.data {
+                    var answers = [Question.Answer]()
+                    let millionaireAnswers = millionaireQuestion.answers
+                    for i in 0..<millionaireAnswers.count {
+                        if(i == 0) {
+                            answers.append(Question.Answer.init(text: millionaireAnswers[i], correct: true))
+                        } else {
+                            answers.append(Question.Answer.init(text: millionaireAnswers[i], correct: false))
+                        }
                     }
+                    // Create Question struct from MillionaireQuestion struct
+                    let question = Question(questionText: millionaireQuestion.question, answers: answers)
+                    questions.append(question)
                 }
-                // Create Question struct from MillionaireQuestion struct
-                let question = Question(questionText: millionaireQuestion.data.first?.question ?? "", answers: answers)
-                completion(question, "")
+                completion(questions, "")
                 
             } catch let error {
                 completion(nil, error.localizedDescription)
